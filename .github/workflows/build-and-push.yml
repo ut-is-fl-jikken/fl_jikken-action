@@ -36,6 +36,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ut-is-fl-jikken/fl_jikken:${{ matrix.tag }}
+          tags: ghcr.io/${{ github.repository }}:${{ matrix.tag }}
           build-args: |
             TAG=${{ matrix.tag }}
