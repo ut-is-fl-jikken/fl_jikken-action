@@ -41,3 +41,5 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ matrix.tag }}
           build-args: |
             TAG=${{ matrix.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
