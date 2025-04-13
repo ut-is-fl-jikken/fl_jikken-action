@@ -1,0 +1,19 @@
+name: Convert to Autograder Input
+description: Converts check results to GitHub Classroom autograder input
+author: ut-is-fl-jikken
+
+inputs:
+  json-path:
+    description: The result .json of the check command.
+    required: true
+  scores:
+    description: The scores for each test case.
+    required: true
+
+outputs:
+  result:
+    description: The converted result.
+
+runs:
+  using: node20
+  main: dist/index.js
