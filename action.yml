@@ -51,9 +51,9 @@ runs:
           docker load -i /tmp/docker-image/image.tar
         else
           echo "Image not cached. Pulling..."
-          docker pull ${{ steps.vars.output.image }}
+          docker pull ${{ steps.vars.outputs.image }}
           echo "Saving image to cache..."
-          docker save ${{ steps.vars.output.image }} -o /tmp/docker-image/image.tar
+          docker save ${{ steps.vars.outputs.image }} -o /tmp/docker-image/image.tar
         fi
 
     -
@@ -75,7 +75,7 @@ runs:
         chmod 777 check_result.json
 
         # Run the container with the image
-        docker run -v $(pwd):/home/opam/repo ${{ steps.vars.output.image }} \
+        docker run -v $(pwd):/home/opam/repo ${{ steps.vars.outputs.image }} \
           bash -c "cd repo && fl_jikken check ${{ inputs.week-number }} --ci --disable-sandboxing --output check_result.json"
 
     -
