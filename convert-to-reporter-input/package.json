@@ -1,7 +1,7 @@
 {
   "name": "convert-to-reporter-input",
   "description": "Converts check results to GitHub Classroom autograder input",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "",
   "type": "module",
   "private": true,
