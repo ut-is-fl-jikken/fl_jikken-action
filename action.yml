@@ -1,0 +1,83 @@
+name: GitHub Classroom fl-jikken autograder
+description: A plugin for GitHub Classroom's Autograder to ensure student programs behave as expected on tests.
+author: ut-is-fl-jikken
+
+inputs:
+  version:
+    description: The version of `fl_jikken` to use.
+    required: false
+    default: main
+  week-number:
+    description: The week number for the test.
+    required: true
+  scores:
+    description: The scores for each test case.
+    required: true
+
+outputs:
+  result:
+    description: Outputs the result of the grader, indicating the success or failure of the test.
+    value: ${{ steps.convert.outputs.result }}
+
+runs:
+  using: composite
+  steps:
+    -
+      name: Set up variables
+      id: vars
+      run: |
+        # Set the image name and cache key
+        IMAGE_NAME=ghcr.io/ut-is-fl-jikken/fl_jikken-action:${{ inputs.version }}
+        echo "image=$IMAGE_NAME" >> $GITHUB_OUTPUT
+        echo "key=image-cache-$(echo $IMAGE_NAME | sha256sum | cut -d ' ' -f1)" >> $GITHUB_OUTPUT
+
+    -
+      name: Restore Docker image cache
+      id: restore-cache
+      uses: actions/cache@v4
+      with:
+        path: /tmp/docker-image
+        key: ${{ steps.vars.outputs.key }}
+
+    -
+      name: Load Docker image from cache if available
+      run: |
+        # Check if the cache was restored
+        mkdir -p /tmp/docker-image
+        if [ -f /tmp/docker-image/image.tar ]; then
+          echo "Loading image from cache..."
+          docker load -i /tmp/docker-image/image.tar
+        else
+          echo "Image not cached. Pulling..."
+          docker pull ${{ steps.vars.output.image }}
+          echo "Saving image to cache..."
+          docker save ${{ steps.vars.output.image }} -o /tmp/docker-image/image.tar
+        fi
+
+    -
+      name: Save Docker image cache
+      uses: actions/cache/save@v4
+      if: steps.restore-cache.outputs.cache-hit != 'true'
+      with:
+        path: /tmp/docker-image
+        key: ${{ steps.vars.outputs.key }}
+
+    -
+      name: Run Kadai check
+      run: |
+        # Create a file to store the result
+        touch check_result.json
+
+        # Set permissions to allow the user (1000) in the container to write to the file
+        chmod 777 check_result.json
+
+        # Run the container with the image
+        docker run -v $(pwd):/home/opam/repo ${{ steps.vars.output.image }} \
+          bash -c "cd repo && fl_jikken check ${{ inputs.week-number }} --ci --disable-sandboxing --output check_result.json"
+
+    -
+      uses: ut-is-fl-jikken/fl_jikken-action/convert-to-reporter-input@v1
+      id: convert
+      with:
+        json-path: check_result.json
+        scores: ${{ inputs.scores }}
