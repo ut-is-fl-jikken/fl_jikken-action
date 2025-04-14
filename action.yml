@@ -25,6 +25,7 @@ runs:
     -
       name: Set up variables
       id: vars
+      shell: bash
       run: |
         # Set the image name and cache key
         IMAGE_NAME=ghcr.io/ut-is-fl-jikken/fl_jikken-action:${{ inputs.version }}
@@ -41,6 +42,7 @@ runs:
 
     -
       name: Load Docker image from cache if available
+      shell: bash
       run: |
         # Check if the cache was restored
         mkdir -p /tmp/docker-image
@@ -64,6 +66,7 @@ runs:
 
     -
       name: Run Kadai check
+      shell: bash
       run: |
         # Create a file to store the result
         touch check_result.json
