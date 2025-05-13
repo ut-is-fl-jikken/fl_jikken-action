@@ -73,7 +73,7 @@ runs:
 
         # Run the image in a container
         docker run -v $(pwd):/home/opam/repo ${{ steps.vars.outputs.image }} \
-          bash -c "cd repo && fl_jikken check ${{ inputs.week-number }} --ci --disable-sandboxing --output check_result.json"
+          bash -c "cd repo && DEBUG=TRUE fl_jikken check ${{ inputs.week-number }} --ci --disable-sandboxing --output check_result.json"
 
     -
       uses: ut-is-fl-jikken/fl_jikken-action/convert-to-reporter-input@v1
