@@ -75,8 +75,8 @@ runs:
         chmod 777 check_result.json
 
         # Run the container with the image
-        docker run -u root -v $(pwd):/home/opam/repo ${{ steps.vars.outputs.image }} \
-          bash -c "chmod -R 777 repo && cd repo && DEBUG=TRUE fl_jikken check ${{ inputs.week-number }} --ci --disable-sandboxing --output check_result.json"
+        docker run -v $(pwd):/home/opam/repo ${{ steps.vars.outputs.image }} \
+        bash -c "sudo chown -R user:user repo && cd repo && fl_jikken check ${{ inputs.week-number }} --ci --disable-sandboxing --output check_result.json"
 
     -
       uses: ut-is-fl-jikken/fl_jikken-action/convert-to-reporter-input@v1
