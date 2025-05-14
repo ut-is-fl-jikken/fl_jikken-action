@@ -1,6 +1,6 @@
 # fl_jikken-action
 
-GitHub Action for fl_jikken
+GitHub Action for [`fl_jikken`](https://github.com/ut-is-fl-jikken/fl_jikken)
 
 ## Publishing a New Release
 
