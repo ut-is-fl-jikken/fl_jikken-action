@@ -68,13 +68,10 @@ runs:
       name: Run Kadai check
       shell: bash
       run: |
-        # Create a file to store the result
-        touch check_result.json
+        # Set permissions to allow the `opam` user (1000) in the container to write to files or dirs
+        chmod -R 777 .
 
-        # Set permissions to allow the user (1000) in the container to write to the file
-        chmod 777 check_result.json
-
-        # Run the container with the image
+        # Run the image in a container
         docker run -v $(pwd):/home/opam/repo ${{ steps.vars.outputs.image }} \
           bash -c "cd repo && fl_jikken check ${{ inputs.week-number }} --ci --disable-sandboxing --output check_result.json"
 
