@@ -2,6 +2,14 @@
 
 GitHub Action for [`fl_jikken`](https://github.com/ut-is-fl-jikken/fl_jikken)
 
+## Baking a New Image
+
+You can build a new image by modifying the `Dockerfile` or `.github/workflows.build-and-push.yml` action in a Pull Request.
+
+The image is built and pushed to the `ut-is-fljikken/fl_jikken-action` GHCR
+when the Pull Request to main is opened or updated. You can also specify a tag
+for the image by modifying the `strategy.matrix.tag` in the workflow file.
+
 ## Publishing a New Release
 
 This project includes a helper script, [`script/release`](./script/release)
