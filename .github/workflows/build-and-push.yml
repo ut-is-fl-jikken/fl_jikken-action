@@ -18,6 +18,7 @@ jobs:
         tag:
           - main
           - v2025.3
+          - v2025.4
 
     steps:
       -
