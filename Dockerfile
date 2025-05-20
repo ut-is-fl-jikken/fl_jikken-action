@@ -23,7 +23,6 @@ USER opam
 ARG TAG=main
 
 RUN opam update \
-  && opam pin add dune 3.15.0 \
   && opam install dune menhir \
   && opam pin add -y fl_jikken https://github.com/ut-is-fl-jikken/fl_jikken.git#${TAG} \
   && opam upgrade
