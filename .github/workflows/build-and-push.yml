@@ -19,6 +19,7 @@ jobs:
           - main
           - v2025.3
           - v2025.4
+          - action-unifier
 
     steps:
       -
