@@ -17,9 +17,7 @@ jobs:
       matrix:
         tag:
           - main
-          - v2025.3
-          - v2025.4
-          - v2025.5
+          - v2025.6
 
     steps:
       -
