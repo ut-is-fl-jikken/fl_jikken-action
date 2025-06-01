@@ -69,7 +69,7 @@ runs:
       shell: bash
       run: |
         # Set permissions to allow the `opam` user (1000) in the container to write to files or dirs
-        chmod -R 666 .
+        chmod -R 777 .
 
         # Run the image in a container
         docker run -v $(pwd):/home/opam/repo ${{ steps.vars.outputs.image }} \
