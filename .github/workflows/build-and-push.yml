@@ -16,6 +16,7 @@ jobs:
     strategy:
       matrix:
         tag:
+          - main
           - v2025.6
 
     steps:
