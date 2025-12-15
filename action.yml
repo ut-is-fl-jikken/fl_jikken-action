@@ -35,7 +35,7 @@ runs:
     -
       name: Restore Docker image cache
       id: restore-cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: /tmp/docker-image
         key: ${{ steps.vars.outputs.key }}
@@ -58,7 +58,7 @@ runs:
 
     -
       name: Save Docker image cache
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       if: steps.restore-cache.outputs.cache-hit != 'true'
       with:
         path: /tmp/docker-image
