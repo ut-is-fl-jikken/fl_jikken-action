@@ -1,11 +1,11 @@
 ARG UBUNTU_VERSION=24.04
-ARG OCAML_VERSION=5.3
+ARG OCAML_VERSION=5.4
 
 FROM ocaml/opam:ubuntu-${UBUNTU_VERSION}-ocaml-${OCAML_VERSION}
 
 USER root
 
-ARG SWI_PROLOG_VERSION=9.2.9
+ARG SWI_PROLOG_VERSION=10.0.2
 
 RUN apt-get update && apt-get install -y software-properties-common \
   && add-apt-repository -y ppa:swi-prolog/stable \
