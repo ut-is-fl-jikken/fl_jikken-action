@@ -17,7 +17,6 @@ jobs:
       matrix:
         tag:
           - main
-          - v2026.2
 
     steps:
       -
