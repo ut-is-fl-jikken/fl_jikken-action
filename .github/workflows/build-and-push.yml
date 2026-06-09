@@ -16,8 +16,8 @@ jobs:
     strategy:
       matrix:
         tag:
-          - main
-          - v2026.8
+          - v2026-nozstd
+          - v2026.8-nozstd
 
     steps:
       -
